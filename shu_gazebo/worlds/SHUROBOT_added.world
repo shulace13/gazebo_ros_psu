@@ -1,0 +1,1669 @@
+<sdf version='1.6'>
+  <world name='default'>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose frame=''>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    <model name='gas_station'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://gas_station/meshes/gas_station.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://gas_station/meshes/gas_station.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://gas_station/materials/scripts</uri>
+              <uri>model://gas_station/materials/textures</uri>
+              <name>GasStation/Diffuse</name>
+            </script>
+            <shader type='normal_map_tangent_space'>
+              <normal_map>GasStation_Normal.png</normal_map>
+            </shader>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-2 7 0 0 -0 0</pose>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics name='default_physics' default='0' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='robot_tutorial'>
+      <static>1</static>
+      <link name='chassis'>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <inertial>
+          <mass>20</mass>
+          <pose frame=''>-0.1 0 -0.1 0 -0 0</pose>
+          <inertia>
+            <ixx>0.5</ixx>
+            <iyy>1</iyy>
+            <izz>0.1</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 1 0.3</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 1 0.3</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='front_left_wheel'>
+        <pose frame=''>0.8 0.6 0.125 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='front_right_wheel'>
+        <pose frame=''>0.8 -0.6 0.125 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='rear_left_wheel'>
+        <pose frame=''>-0.8 0.6 0.125 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='rear_right_wheel'>
+        <pose frame=''>-0.8 -0.6 0.125 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='camera::link'>
+        <inertial>
+          <mass>0.1</mass>
+          <inertia>
+            <ixx>0.000166667</ixx>
+            <iyy>0.000166667</iyy>
+            <izz>0.000166667</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.1 0.1 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.1 0.1 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <sensor name='camera' type='camera'>
+          <camera name='__default__'>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>320</width>
+              <height>240</height>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>100</far>
+            </clip>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>1</visualize>
+        </sensor>
+        <pose frame=''>0.2 0 0.2 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='hokuyo_joint' type='fixed'>
+        <child>hokuyo::link</child>
+        <parent>chassis</parent>
+      </joint>
+      <joint name='f_left_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 -0.03 0 -0 0</pose>
+        <child>front_left_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='f_right_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 0.03 0 -0 0</pose>
+        <child>front_right_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='r_left_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 -0.03 0 -0 0</pose>
+        <child>rear_left_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='r_right_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 0.03 0 -0 0</pose>
+        <child>rear_right_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <pose frame=''>0.232861 -5.88581 0 0 -0 0</pose>
+    </model>
+    <model name='robot_tutorial_0'>
+      <static>0</static>
+      <link name='chassis'>
+        <pose frame=''>0 0 0.1 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.2 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.4 0.2 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <collision name='caster_collision'>
+          <pose frame=''>-0.15 0 -0.05 0 -0 0</pose>
+          <geometry>
+            <sphere>
+              <radius>0.05</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0</mu>
+                <mu2>0</mu2>
+                <slip1>1</slip1>
+                <slip2>1</slip2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='caster_visual'>
+          <pose frame=''>-0.15 0 -0.05 0 -0 0</pose>
+          <geometry>
+            <sphere>
+              <radius>0.05</radius>
+            </sphere>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='left_wheel'>
+        <pose frame=''>0.1 0.13 0.1 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='right_wheel'>
+        <pose frame=''>0.1 -0.13 0.1 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='left_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 -0.03 0 -0 0</pose>
+        <child>left_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>1</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='right_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 0.03 0 -0 0</pose>
+        <child>right_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>1</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <pose frame=''>-0.991804 -4.83099 0 0 -0 0</pose>
+    </model>
+    <model name='simple_mobile_manipulator'>
+      <static>0</static>
+      <link name='simple_gripper::riser'>
+        <pose frame=''>1.15 0 0.6 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 0 -0.5 0 -0 0</pose>
+          <inertia>
+            <ixx>0.01</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01</iyy>
+            <iyz>0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+          <mass>10</mass>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.2 0.2 1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.2 0.2 1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='simple_gripper::palm'>
+        <pose frame=''>1.3 0 0.15 0 -0 0</pose>
+        <inertial>
+          <inertia>
+            <ixx>0.01</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01</iyy>
+            <iyz>0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+          <mass>0.5</mass>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.1 0.2 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.1 0.2 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='simple_gripper::left_finger'>
+        <pose frame=''>1.4 0.2 0.15 0 0 -0.78539</pose>
+        <inertial>
+          <inertia>
+            <ixx>0.01</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01</iyy>
+            <iyz>0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+          <mass>0.1</mass>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.1 0.3 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.1 0.3 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='simple_gripper::left_finger_tip'>
+        <pose frame=''>1.636 0.3 0.15 0 -0 1.5707</pose>
+        <inertial>
+          <inertia>
+            <ixx>0.01</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01</iyy>
+            <iyz>0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+          <mass>0.1</mass>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.1 0.2 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.1 0.2 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='simple_gripper::right_finger'>
+        <pose frame=''>1.4 -0.2 0.15 0 -0 0.78539</pose>
+        <inertial>
+          <inertia>
+            <ixx>0.01</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01</iyy>
+            <iyz>0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+          <mass>0.1</mass>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.1 0.3 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.1 0.3 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='simple_gripper::right_finger_tip'>
+        <pose frame=''>1.636 -0.3 0.15 0 -0 1.5707</pose>
+        <inertial>
+          <inertia>
+            <ixx>0.01</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.01</iyy>
+            <iyz>0</iyz>
+            <izz>0.01</izz>
+          </inertia>
+          <mass>0.1</mass>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.1 0.2 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.1 0.2 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='simple_gripper::palm_left_finger' type='revolute'>
+        <pose frame=''>0 -0.15 0 0 -0 0</pose>
+        <child>simple_gripper::left_finger</child>
+        <parent>simple_gripper::palm</parent>
+        <axis>
+          <limit>
+            <lower>-0.4</lower>
+            <upper>0.4</upper>
+          </limit>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>1</use_parent_model_frame>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='simple_gripper::left_finger_tip' type='revolute'>
+        <pose frame=''>0 0.1 0 0 -0 0</pose>
+        <child>simple_gripper::left_finger_tip</child>
+        <parent>simple_gripper::left_finger</parent>
+        <axis>
+          <limit>
+            <lower>-0.4</lower>
+            <upper>0.4</upper>
+          </limit>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>1</use_parent_model_frame>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='simple_gripper::palm_right_finger' type='revolute'>
+        <pose frame=''>0 0.15 0 0 -0 0</pose>
+        <child>simple_gripper::right_finger</child>
+        <parent>simple_gripper::palm</parent>
+        <axis>
+          <limit>
+            <lower>-0.4</lower>
+            <upper>0.4</upper>
+          </limit>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>1</use_parent_model_frame>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='simple_gripper::right_finger_tip' type='revolute'>
+        <pose frame=''>0 0.1 0 0 -0 0</pose>
+        <child>simple_gripper::right_finger_tip</child>
+        <parent>simple_gripper::right_finger</parent>
+        <axis>
+          <limit>
+            <lower>-0.4</lower>
+            <upper>0.4</upper>
+          </limit>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>1</use_parent_model_frame>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='simple_gripper::palm_riser' type='prismatic'>
+        <child>simple_gripper::palm</child>
+        <parent>simple_gripper::riser</parent>
+        <axis>
+          <limit>
+            <lower>0</lower>
+            <upper>0.9</upper>
+          </limit>
+          <xyz>0 0 1</xyz>
+          <use_parent_model_frame>1</use_parent_model_frame>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <static>1</static>
+      <link name='robot_tutorial::chassis'>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
+        <inertial>
+          <mass>20</mass>
+          <pose frame=''>-0.1 0 -0.1 0 -0 0</pose>
+          <inertia>
+            <ixx>0.5</ixx>
+            <iyy>1</iyy>
+            <izz>0.1</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 1 0.3</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 1 0.3</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='robot_tutorial::front_left_wheel'>
+        <pose frame=''>0.8 0.6 0.125 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='robot_tutorial::front_right_wheel'>
+        <pose frame=''>0.8 -0.6 0.125 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='robot_tutorial::rear_left_wheel'>
+        <pose frame=''>-0.8 0.6 0.125 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='robot_tutorial::rear_right_wheel'>
+        <pose frame=''>-0.8 -0.6 0.125 -0 1.5707 1.5707</pose>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.125</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='robot_tutorial::camera::link'>
+        <inertial>
+          <mass>0.1</mass>
+          <inertia>
+            <ixx>0.000166667</ixx>
+            <iyy>0.000166667</iyy>
+            <izz>0.000166667</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.1 0.1 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>0.1 0.1 0.1</size>
+            </box>
+          </geometry>
+        </visual>
+        <sensor name='camera' type='camera'>
+          <camera name='__default__'>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>320</width>
+              <height>240</height>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>100</far>
+            </clip>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>1</visualize>
+        </sensor>
+        <pose frame=''>0.2 0 0.2 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='robot_tutorial::hokuyo_joint' type='fixed'>
+        <child>hokuyo::link</child>
+        <parent>robot_tutorial::chassis</parent>
+      </joint>
+      <joint name='robot_tutorial::f_left_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 -0.03 0 -0 0</pose>
+        <child>robot_tutorial::front_left_wheel</child>
+        <parent>robot_tutorial::chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='robot_tutorial::f_right_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 0.03 0 -0 0</pose>
+        <child>robot_tutorial::front_right_wheel</child>
+        <parent>robot_tutorial::chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='robot_tutorial::r_left_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 -0.03 0 -0 0</pose>
+        <child>robot_tutorial::rear_left_wheel</child>
+        <parent>robot_tutorial::chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='robot_tutorial::r_right_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 0.03 0 -0 0</pose>
+        <child>robot_tutorial::rear_right_wheel</child>
+        <parent>robot_tutorial::chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>0</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='arm_gripper_joint' type='fixed'>
+        <parent>robot_tutorial::chassis</parent>
+        <child>simple_gripper::riser</child>
+      </joint>
+      <link name='hokuyo::link'>
+        <inertial>
+          <mass>0.1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://hokuyo/meshes/hokuyo.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision-base'>
+          <pose frame=''>0 0 -0.0145 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.05 0.05 0.041</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='collision-top'>
+          <pose frame=''>0 0 0.0205 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <radius>0.021</radius>
+              <length>0.029</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <sensor name='laser' type='ray'>
+          <pose frame=''>0.01 0 0.0175 0 -0 0</pose>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>640</samples>
+                <resolution>1</resolution>
+                <min_angle>-2.26889</min_angle>
+                <max_angle>2.2689</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>1</samples>
+                <min_angle>0</min_angle>
+                <max_angle>0</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.08</min>
+              <max>10</max>
+              <resolution>0.01</resolution>
+            </range>
+          </ray>
+          <plugin name='laser' filename='libRayPlugin.so'/>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>1</visualize>
+        </sensor>
+        <pose frame=''>1.3 0 0.3 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='hokuyo_joint' type='fixed'>
+        <child>hokuyo::link</child>
+        <parent>simple_gripper::palm</parent>
+      </joint>
+      <pose frame=''>-3.64234 -5.59309 0 0 -0 0</pose>
+    </model>
+    <state world_name='default'>
+      <sim_time>477 434000000</sim_time>
+      <real_time>485 277417934</real_time>
+      <wall_time>1540486206 541459454</wall_time>
+      <iterations>477434</iterations>
+      <model name='gas_station'>
+        <pose frame=''>-2 7 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>-2 7 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ground_plane'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='robot_tutorial'>
+        <pose frame=''>7.44754 -12.0397 0 0 -0 2.43705</pose>
+        <scale>1 1 1</scale>
+        <link name='camera::link'>
+          <pose frame=''>7.29516 -11.9101 0.2 0 -0 2.43705</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='chassis'>
+          <pose frame=''>7.44754 -12.0397 0.25 0 -0 2.43705</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='front_left_wheel'>
+          <pose frame=''>6.44941 -11.9786 0.125 0 1.5707 -2.27543</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='front_right_wheel'>
+          <pose frame=''>7.22663 -11.0644 0.125 0 1.5707 -2.27543</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='rear_left_wheel'>
+          <pose frame=''>7.66846 -13.0149 0.125 0 1.5707 -2.27543</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='rear_right_wheel'>
+          <pose frame=''>8.44568 -12.1007 0.125 0 1.5707 -2.27543</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='robot_tutorial_0'>
+        <pose frame=''>-0.98787 -4.83115 4e-06 3e-06 1.3e-05 0.001798</pose>
+        <scale>1 1 1</scale>
+        <link name='chassis'>
+          <pose frame=''>-0.987869 -4.83115 0.100004 3e-06 1.3e-05 0.001798</pose>
+          <velocity>0.000136 -9e-05 0.000729 0.000833 0.008007 6.1e-05</velocity>
+          <acceleration>-0.000197 -0.077296 -1.51927 0.837296 -0.826498 -0.002491</acceleration>
+          <wrench>-0.000197 -0.077296 -1.51927 0 -0 0</wrench>
+        </link>
+        <link name='left_wheel'>
+          <pose frame=''>-0.888102 -4.70098 0.100002 1.56825 1.5333 3.14075</pose>
+          <velocity>0.000128 -8.5e-05 5.3e-05 0.000845 0.001295 6.1e-05</velocity>
+          <acceleration>0.000224 -0.083659 -1.23945 0.837293 0.001624 -0.002511</acceleration>
+          <wrench>0.000224 -0.083659 -1.23945 0 -0 0</wrench>
+        </link>
+        <link name='right_wheel'>
+          <pose frame=''>-0.887635 -4.96098 0.100002 1.56856 1.52832 3.14106</pose>
+          <velocity>0.000144 -8.5e-05 -0.000223 0.000845 0.001462 6.1e-05</velocity>
+          <acceleration>-0.000636 -0.083984 -1.79758 0.838667 0.001484 -0.002506</acceleration>
+          <wrench>-0.000636 -0.083984 -1.79758 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='simple_mobile_manipulator'>
+        <pose frame=''>-3.64713 -5.59357 -0.000673 6e-06 7.9e-05 -0.000148</pose>
+        <scale>1 1 1</scale>
+        <link name='hokuyo::link'>
+          <pose frame=''>-2.3471 -5.59377 0.299752 6e-06 0.000118 -0.000148</pose>
+          <velocity>0.001827 -4.1e-05 -0.017844 -0.000122 0.00858 -4.5e-05</velocity>
+          <acceleration>3.10102 0.362572 -30.8118 3.03545 0.875846 -2.94581</acceleration>
+          <wrench>0.310102 0.036257 -3.08118 0 -0 0</wrench>
+        </link>
+        <link name='robot_tutorial::camera::link'>
+          <pose frame=''>-3.44234 -5.59309 0.05 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 -1e-05 1e-05 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='robot_tutorial::chassis'>
+          <pose frame=''>-3.6471 -5.59357 0.249902 6e-06 0.000119 -0.000148</pose>
+          <velocity>0.001426 1.6e-05 -0.006665 -0.000118 0.008689 0.000125</velocity>
+          <acceleration>0.908004 0.049459 -9.99001 3.039 0.655883 -2.60665</acceleration>
+          <wrench>18.1601 0.989172 -199.8 0 -0 0</wrench>
+        </link>
+        <link name='robot_tutorial::front_left_wheel'>
+          <pose frame=''>-2.84703 -4.9937 0.125608 0.004469 1.54415 1.57502</pose>
+          <velocity>0.001139 0.00016 -0.01383 0.004237 0.008668 0.000121</velocity>
+          <acceleration>1.92015 0.629409 -24.0921 -2.70876 0.689991 -2.61668</acceleration>
+          <wrench>1.92015 0.629409 -24.0921 0 -0 0</wrench>
+        </link>
+        <link name='robot_tutorial::front_right_wheel'>
+          <pose frame=''>-2.84721 -6.19368 0.125614 3.13709 1.54387 -1.57554</pose>
+          <velocity>0.000868 -0.000564 -0.013633 -0.00299 0.008331 -0.000474</velocity>
+          <acceleration>1.61756 -0.879726 -23.8373 2.72335 1.29406 2.39786</acceleration>
+          <wrench>1.61756 -0.879726 -23.8373 0 -0 0</wrench>
+        </link>
+        <link name='robot_tutorial::rear_left_wheel'>
+          <pose frame=''>-4.44703 -4.99345 0.125 1.43108 1.57067 3.00163</pose>
+          <velocity>0.001011 4.7e-05 1.1e-05 -0.000357 0.008118 -0.000231</velocity>
+          <acceleration>1.74232 0.051856 0.017284 -0.381538 1.39827 -0.286088</acceleration>
+          <wrench>1.74232 0.051856 0.017284 0 -0 0</wrench>
+        </link>
+        <link name='robot_tutorial::rear_right_wheel'>
+          <pose frame=''>-4.4472 -6.19346 0.125003 2.27166 1.57064 -2.44097</pose>
+          <velocity>0.001012 1.1e-05 -3.1e-05 -0.000109 0.008143 0.00014</velocity>
+          <acceleration>1.76164 -0.067938 -0.070739 0.507166 1.50592 0.454359</acceleration>
+          <wrench>1.76164 -0.067938 -0.070739 0 -0 0</wrench>
+        </link>
+        <link name='simple_gripper::left_finger'>
+          <pose frame=''>-2.29605 -5.36113 0.149755 -1e-06 1.9e-05 -0.390638</pose>
+          <velocity>0.000534 -0.000204 -0.017632 -0.000362 0.010597 0.000124</velocity>
+          <acceleration>0.642759 0.136883 -30.2176 -0.555194 -0.689817 1.61505</acceleration>
+          <wrench>0.064276 0.013688 -3.02176 0 -0 0</wrench>
+        </link>
+        <link name='simple_gripper::left_finger_tip'>
+          <pose frame=''>-2.11206 -5.19184 0.149753 1.6e-05 -1.1e-05 1.82007</pose>
+          <velocity>0 0.001851 -0.019705 -0.000364 0.010673 0.021064</velocity>
+          <acceleration>0.419002 0.268073 -33.7759 -0.560789 -0.538343 -0.156093</acceleration>
+          <wrench>0.0419 0.026807 -3.37759 0 -0 0</wrench>
+        </link>
+        <link name='simple_gripper::palm'>
+          <pose frame=''>-2.34711 -5.59377 0.149754 7e-06 1.8e-05 -0.000148</pose>
+          <velocity>0.000555 -0.000207 -0.017053 -0.000329 0.01065 2.8e-05</velocity>
+          <acceleration>0.900527 0.053376 -29.2534 -0.48988 -0.584539 0.339293</acceleration>
+          <wrench>0.450264 0.026688 -14.6267 0 -0 0</wrench>
+        </link>
+        <link name='simple_gripper::right_finger'>
+          <pose frame=''>-2.29643 -5.82654 0.149752 1.2e-05 1.7e-05 0.388106</pose>
+          <velocity>0.000581 -0.000194 -0.017396 -0.00088 0.011015 0.000151</velocity>
+          <acceleration>0.682057 -0.044458 -29.8271 -1.58394 0.135753 -1.83765</acceleration>
+          <wrench>0.068206 -0.004446 -2.98271 0 -0 0</wrench>
+        </link>
+        <link name='simple_gripper::right_finger_tip'>
+          <pose frame=''>-2.1143 -6.00133 0.149748 2e-05 2e-06 1.26642</pose>
+          <velocity>-9.2e-05 -0.002403 -0.019327 -0.000851 0.011092 -0.023278</velocity>
+          <acceleration>0.423954 -0.200146 -33.1602 -1.52877 0.287341 0.06407</acceleration>
+          <wrench>0.042395 -0.020015 -3.31602 0 -0 0</wrench>
+        </link>
+        <link name='simple_gripper::riser'>
+          <pose frame=''>-2.49708 -5.59375 0.599237 6e-06 7.9e-05 -0.000148</pose>
+          <velocity>0.004943 -0.000147 -0.000402 -0.000118 0.009857 3.2e-05</velocity>
+          <acceleration>-0.037911 0.019034 -0.32376 3.03957 -1.3793 -2.79297</acceleration>
+          <wrench>-0.379111 0.190343 -3.2376 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose frame=''>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>26.8112 -24.2122 8.64405 0 0.275643 2.35619</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>

@@ -7,7 +7,9 @@
     <arg name="headless" default="false"/>
     <arg name="debug" default="false"/>
 
+<!--
   <env name="GAZEBO_MODEL_PATH" value="$(find diff_drive_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+-->
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">

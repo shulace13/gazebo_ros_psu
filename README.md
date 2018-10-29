@@ -19,18 +19,19 @@ Install by following [this tutorial](http://wiki.ros.org/kinetic/Installation/Ub
 
 I recommend installing **desktop-full**
 
-Then proceed to the [following](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment)
+Then proceed to the [following](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment) where you will create your workspace
 
 ## Needed ROS Packeges
 Get [gazebo_ros_pkgs](https://github.com/ros-simulation/gazebo_ros_pkgs.git)
+
     cd ~/[catkin_workspace]/src
     git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git -b kinetic-devel
     rosdep update
     rosdep check --from-paths . --ignore-src --rosdistro kinetic
+
 If you see any other packages you need, go ahead and install them
 
-When finished, go back to the top of your workspace and execute the following
-    catkin_make
+When finished, go back to the top of your workspace and execute the following `catkin_make`
 You will also need to clone and make [tutlebot](https://github.com/turtlebot/turtlebot)
 
 

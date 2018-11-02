@@ -21,6 +21,7 @@
 
 #include <iostream>
 
+nav_msgs::Odometry odom_;
 nav_msgs::Odometry odom;
 
 // float VEL_MAX 0.3
@@ -44,8 +45,11 @@ void turn_right(geometry_msgs::Twist &vel){
     vel.angular.z = 0.3;
 }
 
+void odom_initCallback(const nav_msgs::Odometry& msg){
+    odom_ = msg;
+}
+
 void odomCallback(const nav_msgs::Odometry& msg){
-    printf("Captured odom!\n");
     odom = msg;
 }
 
@@ -55,7 +59,6 @@ int main(int argc, char **argv){
     ros::NodeHandle n;
 
     geometry_msgs::Twist vel;
-    geometry_msgs::Pose init_pose;
     int linear_, angular_;
     double l_scale, a_scale;
     int state = 0;
@@ -69,20 +72,34 @@ int main(int argc, char **argv){
 
     ros::Publisher vel_pub_ = n.advertise<geometry_msgs::Twist>("cmd_vel", 1, true);
     
-    ros::Subscriber odom_sub_ = n.subscribe("/odom",10,odomCallback);
-    init_pose.position.x = odom.pose.pose.position.x;
-    init_pose.position.y = odom.pose.pose.position.y;
-    init_pose.position.z = odom.pose.pose.position.z;
-
-
+    ros::Subscriber odom_init_sub_ = n.subscribe("/odom",10,odom_initCallback);
+    geometry_msgs::Pose init_pose;
+    init_pose.position.x = odom_.pose.pose.position.x;
+    init_pose.position.y = odom_.pose.pose.position.y;
+    init_pose.position.z = odom_.pose.pose.position.z;
     ros::Rate loop_rate(3); 
 
     while(ros::ok()){
                 
         printf("Just showing the init pose\nx = %f\ny = %f\nz = %f\n",
                 init_pose.position.x, init_pose.position.y, init_pose.position.z);        
-        straight(vel);
-        
+ 
+        ros::Subscriber odom_sub_ = n.subscribe("/odom",10,odomCallback);
+        geometry_msgs::Pose new_pose;
+        new_pose.position.x = odom.pose.pose.position.x;
+        new_pose.position.y = odom.pose.pose.position.y;
+        new_pose.position.z = odom.pose.pose.position.z;
+        printf("Just showing the new pose\nx = %f\ny = %f\nz = %f\n",
+                new_pose.position.x, new_pose.position.y, new_pose.position.z);        
+    
+       
+        if(fabs(new_pose.position.x - init_pose.position.x)<0.5){
+            straight(vel);
+        }
+
+        if(fabs(new_pose.position.x - init_pose.position.x)>0.5){
+            stop(vel);
+        }        
         // printf("Here's linear.x = %f\n", vel.linear.x);
         // printf("Publishing Topics\n");
         vel_pub_.publish(vel);

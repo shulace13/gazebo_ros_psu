@@ -26,15 +26,6 @@
 // float VEL_MAX 0.3
 // float VEL_MIN -0.3
 
-/*
-boost::mutex mutex_odom_;
-nav_msgs::Odometry odom_;
-void odom_initCallback(const nav_msgs::Odometry& msg){
-    boost::mutex::scoped_lock(mutex_odom_);
-    odom_ = msg;
-}
-*/
-
 boost::mutex mutex_odom;
 nav_msgs::Odometry odom;
 void odomCallback(const nav_msgs::Odometry& msg){
@@ -69,12 +60,13 @@ int main(int argc, char **argv){
     geometry_msgs::Twist vel;
     int linear_, angular_;
     double l_scale, a_scale;
-    int state = 0;
     linear_ = 1;
     l_scale = 0.0;
     angular_ = 1;
     a_scale = 0.0;
-     
+
+    bool check_straight, check_turn, check_straight_y;
+
     // vel.linear.x = linear_*l_scale;
     // vel.angular.z = angular_*a_scale;
 
@@ -110,24 +102,28 @@ int main(int argc, char **argv){
         nav_msgs::Odometry pose_;
         {
             boost::mutex::scoped_lock(mutex_odom);
-            // new_pose.position.x = odom.pose.pose.position.x;
-            // new_pose.position.y = odom.pose.pose.position.y;
-            // new_pose.position.z = odom.pose.pose.position.z;
             pose_ = odom;
         }
-
        
         if(pose_.pose.pose.position.x<1.5 && 
-                pose_.pose.pose.position.y<0.1){
+                check_straight!=true){
             straight(vel);
         }
 
-        if(pose_.pose.pose.position.x>1.5){
+        if(pose_.pose.pose.position.x>1.5 &&
+                check_turn!=true){
             turn_left(vel);
+            check_straight = true;
+            // Insert an if thing here to mark the check_turn flag to true
+        }
+
+        if(pose_.pose.pose.position.y<1.5 &&
+                check_straight_y!=true &&
+                check_straight==true &&
+                check_turn==true){
+            straight(vel);
         }
         
-        // printf("Here's linear.x = %f\n", vel.linear.x);
-        // printf("Publishing Topics\n");
         vel_pub_.publish(vel);
 
         ros::spinOnce();

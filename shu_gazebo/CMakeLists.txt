@@ -63,3 +63,6 @@ include_directories(
 
 add_executable(circles_vel src/circles_vel.cpp)
 target_link_libraries(circles_vel ${catkin_LIBRARIES})
+
+add_executable(squares_vel src/square.cpp)
+target_link_libraries(squares_vel ${catkin_LIBRARIES})

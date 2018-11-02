@@ -65,7 +65,7 @@ int main(int argc, char **argv){
         
         vel_pub_.publish(vel);
 
-        // ros::spinOnce();
+        ros::spinOnce();
 
         loop_rate.sleep();
     }

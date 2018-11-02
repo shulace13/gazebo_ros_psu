@@ -18,14 +18,28 @@
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Pose.h>
 #include <math.h>
+#include <boost/thread.hpp>
 
 #include <iostream>
 
-nav_msgs::Odometry odom_;
-nav_msgs::Odometry odom;
 
 // float VEL_MAX 0.3
 // float VEL_MIN -0.3
+
+boost::mutex mutex_odom_;
+nav_msgs::Odometry odom_;
+void odom_initCallback(const nav_msgs::Odometry& msg){
+    boost::mutex::scoped_lock(mutex_odom_);
+    odom_ = msg;
+}
+
+boost::mutex mutex_odom;
+nav_msgs::Odometry odom;
+void odomCallback(const nav_msgs::Odometry& msg){
+    boost::mutex::scoped_lock(mutex_odom);
+    odom = msg;
+}
+
 
 void straight(geometry_msgs::Twist &vel){
     printf("Straight\n");
@@ -44,15 +58,6 @@ void turn_right(geometry_msgs::Twist &vel){
     vel.linear.x = 0.1;
     vel.angular.z = 0.3;
 }
-
-void odom_initCallback(const nav_msgs::Odometry& msg){
-    odom_ = msg;
-}
-
-void odomCallback(const nav_msgs::Odometry& msg){
-    odom = msg;
-}
-
 
 int main(int argc, char **argv){
     ros::init(argc, argv, "squares_vel");
@@ -74,21 +79,29 @@ int main(int argc, char **argv){
     
     ros::Subscriber odom_init_sub_ = n.subscribe("/odom",10,odom_initCallback);
     geometry_msgs::Pose init_pose;
-    init_pose.position.x = odom_.pose.pose.position.x;
-    init_pose.position.y = odom_.pose.pose.position.y;
-    init_pose.position.z = odom_.pose.pose.position.z;
+    {
+        boost::mutex::scoped_lock(mutex_odom_);
+        init_pose.position.x = odom_.pose.pose.position.x;
+        init_pose.position.y = odom_.pose.pose.position.y;
+        init_pose.position.z = odom_.pose.pose.position.z;
+    }
+    
+
     ros::Rate loop_rate(3); 
 
     while(ros::ok()){
                 
         printf("Just showing the init pose\nx = %f\ny = %f\nz = %f\n",
                 init_pose.position.x, init_pose.position.y, init_pose.position.z);        
- 
         ros::Subscriber odom_sub_ = n.subscribe("/odom",10,odomCallback);
         geometry_msgs::Pose new_pose;
-        new_pose.position.x = odom.pose.pose.position.x;
-        new_pose.position.y = odom.pose.pose.position.y;
-        new_pose.position.z = odom.pose.pose.position.z;
+        {
+            boost::mutex::scoped_lock(mutex_odom);
+            new_pose.position.x = odom.pose.pose.position.x;
+            new_pose.position.y = odom.pose.pose.position.y;
+            new_pose.position.z = odom.pose.pose.position.z;
+        }
+
         printf("Just showing the new pose\nx = %f\ny = %f\nz = %f\n",
                 new_pose.position.x, new_pose.position.y, new_pose.position.z);        
     

@@ -23,8 +23,6 @@
 #include <iostream>
 
 
-// float VEL_MAX 0.3
-// float VEL_MIN -0.3
 
 boost::mutex mutex_odom;
 nav_msgs::Odometry odom;
@@ -35,19 +33,19 @@ void odomCallback(const nav_msgs::Odometry& msg){
 
 
 void straight(geometry_msgs::Twist &vel){
-    printf("Straight\n");
+    // printf("Straight\n");
     vel.linear.x = 0.2;
     vel.angular.z = 0.0;
 }
 
 void turn_left(geometry_msgs::Twist &vel){
-    printf("Turn\n");
+    // printf("Turn\n");
     vel.linear.x = 0.1;
     vel.angular.z = 0.3;
 }
 
 void stop(geometry_msgs::Twist &vel){
-    printf("STOP\n");
+    // printf("STOP\n");
     vel.linear.x = 0.0;
     vel.angular.z = 0.0;
 }

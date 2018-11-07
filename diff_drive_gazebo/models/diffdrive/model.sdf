@@ -114,6 +114,15 @@
             </axis>
         </joint>
 
+        <include>
+            <uri>model://camera</uri>
+            <pose>0.2 0 0.2 0 0 0</pose>
+        </include>
+        <joint name='camera_joint' type='fixed'>
+            <parent>chassis</parent>
+            <child>camera::link</child>
+        </joint>
+
         <!-- Plugins -->
         <plugin name='differential_drive_controller' filename='libgazebo_ros_diff_drive.so'>
             <legacyMode>false</legacyMode>

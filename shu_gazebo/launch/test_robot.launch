@@ -15,6 +15,6 @@
         <arg name="debug" value="$(arg debug)"/>
     </include>
 
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $/home/shu18/.gazebo/models/diffdrive/model.sdf -sdf -model diffdrive" />
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find gazebo_models)/models/mobile_bot_sensor/model.sdf -sdf -model mobile_sensor" />
 
 </launch>

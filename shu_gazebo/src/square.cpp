@@ -22,8 +22,6 @@
 
 #include <iostream>
 
-
-
 boost::mutex mutex_odom;
 nav_msgs::Odometry odom;
 void odomCallback(const nav_msgs::Odometry& msg){

@@ -3,12 +3,11 @@
  * Following the tutorial at
  * www.theconstructsim.com/create-a-ros-sensor-plugin-for-gazebo/
  *
- *
- *
+ * There are some places I modified since it didn't work in my env
+ * Ubuntu 16.04
+ * ROS kinetic
+ * gazebo 7.6?
  * 
- *
- *
- *
  */
 
 #include <gazebo/common/Plugin.hh>
@@ -75,7 +74,8 @@ namespace gazebo
             const std::string &_format)
     {
         static int seq=0;
-        this->sensor_update_time_ = this->parentSensor_->GetLastUpdateTime();
+        // this->sensor_update_time_ = this->parentSensor_->GetLastUpdateTime();
+        this->sensor_update_time_ = this->parentSensor_->LastUpdateTime();
 
         if(!this->parentSensor->IsActive())
         {

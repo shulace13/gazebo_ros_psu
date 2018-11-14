@@ -1,0 +1,194 @@
+<?xml version='1.0'?>
+<sdf version="1.4">
+    <model name="4wheeled_robot">
+        <!-- Here's the body -->
+        <link name='chassis'>
+            <pose>0 0 0.1 0 0 0</pose>
+            <collision name='collision'>
+                <geometry>
+                    <box>
+                        <size>0.4 0.2 0.1</size>
+                    </box>
+                </geometry>
+            </collision>
+            <visual name='visual'>
+                <geometry>
+                    <box>
+                        <size>0.4 0.2 0.1</size>
+                    </box>
+                </geometry>
+            </visual>
+            <!-- Laser Stuff -->
+            <sensor type='ray' name='sensor'>
+                <pose>0.2 0 0.12 0 0 0</pose>
+                <visualize>true</visualize>
+                <update_rate>30</update_rate>
+                <ray>
+                    <scan>
+                        <horizontal>
+                        <samples>720</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-1.570796</min_angle>
+                        <max_angle>1.570796</max_angle>
+                        </horizontal>
+                    </scan>
+                    <range>
+                        <min>0.05</min>
+                        <max>35.0</max>
+                        <resolution>0.02</resolution>
+                    </range>
+                </ray>
+                <plugin name='laser_plugin' filename='libgazebo_ros_laser.so'>
+                    <topicName>/scan</topicName>
+                    <frameName>/base_scan_link</frameName>
+                </plugin>
+            </sensor>
+        </link>
+        <!-- Inserting the rear wheels -->
+        <link name='left_rw'>
+            <pose>0.1 0.13 0.1 0 1.5707 1.5707</pose>
+            <collision name='collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.1</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name='visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.1</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </visual>
+        </link>
+        <link name='right_rw'>
+            <pose>0.1 -0.13 0.1 0 1.5707 1.5707</pose>
+            <collision name='collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.1</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name='visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.1</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </visual>
+        </link>
+
+        <!-- Inserting the front wheels -->
+        <link name='left_fw'>
+            <pose>-0.1 0.13 0.1 0 1.5707 1.5707</pose>
+            <collision name='collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.1</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name='visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.1</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </visual>
+        </link>
+        <link name='right_fw'>
+            <pose>-0.1 -0.13 0.1 0 1.5707 1.5707</pose>
+            <collision name='collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.1</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name='visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.1</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </visual>
+        </link>
+
+        <!-- Connecting the wheels to the chassis -->
+        <joint type='revolute' name='left_rw_hinge'>
+            <pose>0 0 -0.03 0 0 0</pose>
+            <parent>chassis</parent>
+            <child>left_rw</child>
+            <axis>
+                <xyz>0 1 0</xyz>
+            </axis>
+        </joint>
+        <joint type='revolute' name='right_rw_hinge'>
+            <pose>0 0 0.03 0 0 0</pose>
+            <parent>chassis</parent>
+            <child>right_rw</child>
+            <axis>
+                <xyz>0 1 0</xyz>
+            </axis>
+        </joint>
+
+        <joint type='revolute' name='left_fw_hinge'>
+            <pose>0 0 -0.03 0 0 0</pose>
+            <parent>chassis</parent>
+            <child>left_fw</child>
+            <axis>
+                <xyz>0 1 0</xyz>
+            </axis>
+        </joint>
+        <joint type='revolute' name='right_fw_hinge'>
+            <pose>0 0 0.03 0 0 0</pose>
+            <parent>chassis</parent>
+            <child>right_fw</child>
+            <axis>
+                <xyz>0 1 0</xyz>
+            </axis>
+        </joint>
+
+        <!-- Plugins -->
+        <plugin name='differential_drive_controller' filename='libgazebo_ros_diff_drive.so'>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>20</updateRate>
+            <leftJoint>left_rw_hinge</leftJoint>
+            <rightJoint>right_rw_hinge</rightJoint>
+            <wheelSeparation>0.4</wheelSeparation>
+            <wheelDiameter>0.1</wheelDiameter>
+            <torque>20</torque>
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+        </plugin>
+        <!--
+        <plugin name='skid_steer_drive_controller' filename='libgazebo_ros_skid_steer_drive.so'>
+            <updateRate>20</updateRate>
+            <robotNamespace>4w_robot</robotNamespace>
+            <leftFrontJoint>left_fw_hinge</leftFrontJoint>
+            <rightFrontJoint>right_fw_hinge</rightFrontJoint>
+            <leftRearJoint>left_rw_hinge</leftRearJoint>
+            <rightRearJoint>right_rw_hinge</rightRearJoint>
+            <wheelSeparation>0.4</wheelSeparation>
+            <wheelDiameter>0.2</wheelDiameter>
+            <robotBaseFrame>base_link</robotBaseFrame>
+            <torque>20</torque>
+            <topicName>cmd_vel</topicName>
+            <broadcastTF>false</broadcastTF>
+        </plugin>
+        -->
+
+    </model>
+</sdf>

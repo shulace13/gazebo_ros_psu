@@ -2,3 +2,5 @@ gazebo_ros_pkgs/
 gazebo_ros_demos/
 tutlebot/
 CMakeLists.txt
+.rosinstall
+.rosinstall.bak

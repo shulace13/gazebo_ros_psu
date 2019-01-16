@@ -5,7 +5,7 @@ For this repository, we used
 * ROS kinetic
 * Gazebo 8 (For gym-gazebo it specifies 8.1.1 but using 8.6 for now)(2019/01)
 
-### How to install (gazebo 7)
+### How to install (gazebo 8)
     sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
     wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
     sudo apt-get update

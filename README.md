@@ -41,7 +41,7 @@ Explanations of each directory here.
 This is created by following this [site](http://www.theconstructsim.com/how-to-build-a-differential-drive-simulation/).
 
 ### gazebo_models
-Storing models created by me. (2019/01)
+Storing models created by me. 
 
 ### gazebo_light_sensor_plugin
 Just followed the site [here](http://www.theconstructsim.com/create-a-ros-sensor-plugin-for-gazebo/).
